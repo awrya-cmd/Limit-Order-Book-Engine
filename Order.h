@@ -19,7 +19,7 @@ public:
         : orderId(id), side(s), price(p), quantity(q)
     {
 
-        timestamp =  chrono::system_clock::now()
+        timestamp = chrono::system_clock::now()
                         .time_since_epoch()
                         .count();
     }

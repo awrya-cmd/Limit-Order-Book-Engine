@@ -25,31 +25,32 @@ int main()
 
         switch (choice)
         {
-            case 1:
-                engine.placeBuyOrder();
-                break;
 
-            case 2:
-                engine.placeSellOrder();
-                break;
+        case 1:
+            engine.placeBuyOrder();
+            break;
 
-            case 3:
-                engine.showOrderBook();
-                break;
+        case 2:
+            engine.placeSellOrder();
+            break;
 
-            case 4:
-                engine.showTrades();
-                break;
+        case 3:
+            engine.showOrderBook();
+            break;
 
-            case 5:
-                engine.showMarketStats();
-                break;
+        case 4:
+            engine.showTrades();
+            break;
 
-            case 6:
-                return 0;
+        case 5:
+            engine.showMarketStats();
+            break;
 
-            default:
-                cout << "Invalid choice\n";
+        case 6:
+            return 0;
+
+        default:
+            cout << "Invalid choice\n";
         }
     }
 }

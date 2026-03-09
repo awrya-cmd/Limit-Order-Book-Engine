@@ -8,7 +8,6 @@
 #include "Order.h"
 using namespace std;
 
-
 struct BuyCompare
 {
 
@@ -47,10 +46,10 @@ class MatchingEngine
 
     private:
 
-         priority_queue<Order,  vector<Order>, BuyCompare> buyOrders;
-         priority_queue<Order,  vector<Order>, SellCompare> sellOrders;
+        priority_queue<Order, vector<Order>, BuyCompare> buyOrders;
+        priority_queue<Order, vector<Order>, SellCompare> sellOrders;
 
-         vector<Trade> tradeHistory;
+        vector<Trade> tradeHistory;
 
         int nextOrderId = 1;
 
@@ -62,11 +61,11 @@ class MatchingEngine
             double price;
             int quantity;
 
-             cout << "Enter BUY price: ";
-             cin >> price;
+            cout << "Enter BUY price: ";
+            cin >> price;
 
-             cout << "Enter quantity: ";
-             cin >> quantity;
+            cout << "Enter quantity: ";
+            cin >> quantity;
 
             Order order(nextOrderId++, "BUY", price, quantity);
 
@@ -81,11 +80,11 @@ class MatchingEngine
             double price;
             int quantity;
 
-             cout << "Enter SELL price: ";
-             cin >> price;
+            cout << "Enter SELL price: ";
+            cin >> price;
 
-             cout << "Enter quantity: ";
-             cin >> quantity;
+            cout << "Enter quantity: ";
+            cin >> quantity;
 
             Order order(nextOrderId++, "SELL", price, quantity);
 
@@ -97,22 +96,20 @@ class MatchingEngine
         void matchOrders()
         {
 
-            while (!buyOrders.empty() && !sellOrders.empty())
-            {
+            while (!buyOrders.empty() && !sellOrders.empty()) {
 
                 Order buy = buyOrders.top();
                 Order sell = sellOrders.top();
 
-                if (buy.price >= sell.price)
-                {
+                if (buy.price >= sell.price) {
 
-                    int tradedQty =  min(buy.quantity, sell.quantity);
+                    int tradedQty = min(buy.quantity, sell.quantity);
 
-                     cout << "\nTrade executed: "
-                            << tradedQty
-                            << " shares @ "
-                            << sell.price
-                            << "\n";
+                    cout << "\nTrade executed: "
+                        << tradedQty
+                        << " shares @ "
+                        << sell.price
+                        << "\n";
 
                     tradeHistory.push_back({tradedQty, sell.price});
 
@@ -128,7 +125,6 @@ class MatchingEngine
                     if (sell.quantity > 0)
                         sellOrders.push(sell);
                 }
-
                 else
                     break;
             }
@@ -137,26 +133,27 @@ class MatchingEngine
         void showOrderBook()
         {
 
-             cout << "\n===== ORDER BOOK =====\n";
+            cout << "\n===== ORDER BOOK =====\n";
 
-             cout << "\nBuy Orders:\n";
+            cout << "\nBuy Orders:\n";
 
             auto buyCopy = buyOrders;
 
-            while (!buyCopy.empty())
-            {
+            while (!buyCopy.empty()) {
 
                 Order o = buyCopy.top();
                 buyCopy.pop();
 
-                 cout << "BUY "
-                        << o.quantity
-                        << " @ "
-                        << o.price
-                        << "\n";
+                cout << "OrderID: "
+                    << o.orderId
+                    << " | BUY "
+                    << o.quantity
+                    << " @ "
+                    << o.price
+                    << "\n";
             }
 
-             cout << "\nSell Orders:\n";
+            cout << "\nSell Orders:\n";
 
             auto sellCopy = sellOrders;
 
@@ -166,45 +163,47 @@ class MatchingEngine
                 Order o = sellCopy.top();
                 sellCopy.pop();
 
-                 cout << "SELL "
-                        << o.quantity
-                        << " @ "
-                        << o.price
-                        << "\n";
+                cout << "OrderID: "
+                    << o.orderId
+                    << " | SELL "
+                    << o.quantity
+                    << " @ "
+                    << o.price
+                    << "\n";
             }
         }
 
         void showTrades()
         {
 
-             cout << "\n===== TRADE HISTORY =====\n";
+            cout << "\n===== TRADE HISTORY =====\n";
 
             if (tradeHistory.empty())
             {
 
-                 cout << "No trades executed\n";
+                cout << "No trades executed\n";
                 return;
             }
 
             for (auto &t : tradeHistory)
             {
 
-                 cout << t.quantity
-                        << " shares @ "
-                        << t.price
-                        << "\n";
+                cout << t.quantity
+                    << " shares @ "
+                    << t.price
+                    << "\n";
             }
         }
 
         void showMarketStats()
         {
 
-             cout << "\n===== MARKET STATS =====\n";
+            cout << "\n===== MARKET STATS =====\n";
 
             if (tradeHistory.empty())
             {
 
-                 cout << "No trades yet\n";
+                cout << "No trades yet\n";
                 return;
             }
 
@@ -224,21 +223,21 @@ class MatchingEngine
 
             double avgPrice = totalValue / totalVolume;
 
-             cout << "Total Trades: "
-                    << tradeHistory.size()
-                    << "\n";
+            cout << "Total Trades: "
+                << tradeHistory.size()
+                << "\n";
 
-             cout << "Total Volume: "
-                    << totalVolume
-                    << "\n";
+            cout << "Total Volume: "
+                << totalVolume
+                << "\n";
 
-             cout << "Average Trade Price: "
-                    << avgPrice
-                    << "\n";
+            cout << "Average Trade Price: "
+                << avgPrice
+                << "\n";
 
-             cout << "Highest Trade Price: "
-                    << maxPrice
-                    << "\n";
+            cout << "Highest Trade Price: "
+                << maxPrice
+                << "\n";
         }
 };
 
